@@ -9,3 +9,5 @@ ENV/
 .DS_Store
 
 src/
+
+docker/postgres/generated
