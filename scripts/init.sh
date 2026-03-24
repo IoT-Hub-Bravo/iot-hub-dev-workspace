@@ -6,7 +6,7 @@ WORKSPACE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source "${WORKSPACE_ROOT}/scripts/lib.sh"
 
 SRC_ROOT="${WORKSPACE_ROOT}/src"
-SERVICES_FILE="${WORKSPACE_ROOT}/manifests/services_repos.sh"
+SERVICES_FILE="${WORKSPACE_ROOT}/manifests/service_repos.sh"
 
 SERVICE_ENV_EXAMPLE_FILE=".env.example"
 SERVICE_ENV_FILE=".env"

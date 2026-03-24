@@ -14,7 +14,7 @@ SRC_ROOT="${WORKSPACE_ROOT}/src"
 SERVICE_COMPOSE_FILE="compose/runtime.yml"
 SERVICE_ENV_FILE=".env"
 
-GENERATE_POSTGRES_SCRIPT="${WORKSPACE_ROOT}/scripts/generate_postgres_init.sh"
+GENERATE_POSTGRES_SCRIPT="${WORKSPACE_ROOT}/scripts/generate-postgres-init.sh"
 
 
 start_compose_stack() {
