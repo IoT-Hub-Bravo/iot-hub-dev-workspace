@@ -1,0 +1,12 @@
+SERVICE_REPOS=(
+  "audit-service|git@github.com:IoT-Hub-Bravo/audit-service.git"
+  "action-dispatcher-service|git@github.com:IoT-Hub-Bravo/action-dispatcher-service.git"
+  "events-service|git@github.com:IoT-Hub-Bravo/events-service.git"
+  "rule-engine-service|git@github.com:IoT-Hub-Bravo/rule-engine-service.git"
+  "realtime-service|git@github.com:IoT-Hub-Bravo/realtime-service.git"
+  "telemetry-storage-service|git@github.com:IoT-Hub-Bravo/telemetry-storage-service.git"
+  "telemetry-processor-service|git@github.com:IoT-Hub-Bravo/telemetry-processor-service.git"
+  "telemetry-intake-service|git@github.com:IoT-Hub-Bravo/telemetry-intake-service.git"
+  "device-registry-service|git@github.com:IoT-Hub-Bravo/device-registry-service.git"
+  "auth-service|git@github.com:IoT-Hub-Bravo/auth-service.git"
+)
