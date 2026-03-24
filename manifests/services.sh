@@ -1,0 +1,12 @@
+SERVICES=(
+  "audit-service"
+  "action-dispatcher-service"
+  "events-service"
+  "rule-engine-service"
+  "realtime-service"
+  "telemetry-storage-service"
+  "telemetry-processor-service"
+  "telemetry-intake-service"
+  "device-registry-service"
+  "auth-service"
+)
