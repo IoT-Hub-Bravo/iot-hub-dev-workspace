@@ -74,14 +74,14 @@ If you modify:
 
 ```shell
 src/auth-service/app/settings.py
-src/auth-service/docker/compose.runtime.yml
+src/auth-service/docker/compose/runtime.yml
 ```
 
 then commit from:
 ```shell
 cd iot-hub-dev-workspace/src/auth-service
 git status
-git add app/settings.py docker/compose.runtime.yml
+git add app/settings.py docker/compose/runtime.yml
 git commit -m "Adjust local runtime configuration"
 git push
 ```
