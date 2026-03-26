@@ -7,3 +7,7 @@ ENV/
 .idea/
 
 .DS_Store
+
+src/
+
+docker/postgres/generated
