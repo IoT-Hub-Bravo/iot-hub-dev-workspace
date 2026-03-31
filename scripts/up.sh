@@ -12,6 +12,7 @@ WORKSPACE_ENV_FILE="${WORKSPACE_ROOT}/.env"
 
 SRC_ROOT="${WORKSPACE_ROOT}/src"
 SERVICE_COMPOSE_FILE="compose/runtime.yml"
+SERVICE_OVERRIDE_FILE="compose/override.yml"
 SERVICE_ENV_FILE=".env"
 
 GENERATE_POSTGRES_SCRIPT="${WORKSPACE_ROOT}/scripts/generate-postgres-init.sh"
@@ -30,13 +31,24 @@ start_compose_stack() {
 start_service() {
   local service_name="$1"
   local compose_file="${SRC_ROOT}/${service_name}/${SERVICE_COMPOSE_FILE}"
+  local override_file="${SRC_ROOT}/${service_name}/${SERVICE_OVERRIDE_FILE}"
   local service_env_file="${SRC_ROOT}/${service_name}/${SERVICE_ENV_FILE}"
+  local compose_args=()
 
   require_file "$compose_file"
   require_file "$service_env_file"
 
+  compose_args+=(--env-file "$service_env_file")
+  compose_args+=(-f "$compose_file")
+
+  if [ -f "$override_file" ]; then
+    compose_args+=(-f "$override_file")
+    log "${override_file} found."
+  fi
+
   log "Starting service '${service_name}'..."
-  docker compose --env-file "$service_env_file" -f "$compose_file" up -d --build
+
+  docker compose "${compose_args[@]}" up -d --build
 }
 
 start_all_services() {
