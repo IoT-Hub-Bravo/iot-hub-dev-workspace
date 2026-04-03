@@ -1,7 +1,8 @@
 POSTGRES_SERVICES=(
+  "auth-service"
   "audit-service"
   "events-service"
   "rule-engine-service"
   "device-registry-service"
-  "auth-service"
+  "telemetry-storage-service"
 )

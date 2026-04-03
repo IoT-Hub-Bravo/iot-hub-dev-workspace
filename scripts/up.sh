@@ -43,7 +43,6 @@ start_service() {
 
   if [ -f "$override_file" ]; then
     compose_args+=(-f "$override_file")
-    log "${override_file} found."
   fi
 
   log "Starting service '${service_name}'..."
