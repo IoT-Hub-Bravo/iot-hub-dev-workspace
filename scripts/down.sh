@@ -8,6 +8,7 @@ source "${WORKSPACE_ROOT}/scripts/lib.sh"
 SERVICES_FILE="${WORKSPACE_ROOT}/manifests/services.sh"
 INFRA_COMPOSE="${WORKSPACE_ROOT}/compose/infra.yml"
 SHARED_COMPOSE="${WORKSPACE_ROOT}/compose/shared.yml"
+GATEWAY_COMPOSE="${WORKSPACE_ROOT}/compose/gateway.yml"
 WORKSPACE_ENV_FILE="${WORKSPACE_ROOT}/.env"
 
 SRC_ROOT="${WORKSPACE_ROOT}/src"
@@ -70,6 +71,7 @@ main() {
   load_services
 
   stop_services
+  stop_stack "$GATEWAY_COMPOSE" "$WORKSPACE_ENV_FILE" "gateway"
   stop_stack "$SHARED_COMPOSE" "$WORKSPACE_ENV_FILE" "shared"
   stop_stack "$INFRA_COMPOSE" "$WORKSPACE_ENV_FILE" "infrastructure"
 

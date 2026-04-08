@@ -1,0 +1,23 @@
+name: ${COMPOSE_GATEWAY_NAME:-iot-hub-gateway}
+
+services:
+  gateway:
+    image: nginx:1.27-alpine
+    container_name: gateway
+    restart: unless-stopped
+    ports:
+      - "${GATEWAY_PORT:-80}:80"
+    volumes:
+      - ../docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - iot-hub-nw
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+networks:
+  iot-hub-nw:
+    external: true
