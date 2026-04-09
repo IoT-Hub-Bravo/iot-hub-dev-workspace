@@ -8,8 +8,8 @@ source "${WORKSPACE_ROOT}/scripts/lib.sh"
 SRC_ROOT="${WORKSPACE_ROOT}/src"
 SERVICES_FILE="${WORKSPACE_ROOT}/manifests/service_repos.sh"
 
-SERVICE_ENV_EXAMPLE_FILE=".env.example"
-SERVICE_ENV_FILE=".env"
+ENV_EXAMPLE_FILE=".env.example"
+ENV_FILE=".env"
 
 NETWORK_NAME="iot-hub-nw"
 
@@ -32,22 +32,37 @@ clone_repo() {
   git clone "$repo_url" "$target_dir" || fail "Failed to clone ${name}"
 }
 
-ensure_service_env_file() {
-  local service_name="$1"
-  local env_example_path="${SRC_ROOT}/${service_name}/${SERVICE_ENV_EXAMPLE_FILE}"
-  local env_path="${SRC_ROOT}/${service_name}/${SERVICE_ENV_FILE}"
+create_env_file_if_missing() {
+  local env_example_path="$1"
+  local env_path="$2"
+  local target_name="$3"
 
   if [ -f "$env_path" ]; then
-    return
+    return 0
   fi
 
-  if [ -f "$env_example_path" ]; then
-    cp "$env_example_path" "$env_path"
-    log "Created ${SERVICE_ENV_FILE} from ${SERVICE_ENV_EXAMPLE_FILE} for ${service_name}"
-    return
+  if [ ! -f "$env_example_path" ]; then
+    log "No ${ENV_EXAMPLE_FILE} found for ${target_name}, skipping env creation"
+    return 0
   fi
 
-  log "No ${SERVICE_ENV_EXAMPLE_FILE} found for ${service_name}, skipping env creation"
+  cp "$env_example_path" "$env_path"
+  log "Created ${ENV_FILE} from ${ENV_EXAMPLE_FILE} for ${target_name}"
+}
+
+ensure_workspace_env_file() {
+  local env_example_path="${WORKSPACE_ROOT}/${ENV_EXAMPLE_FILE}"
+  local env_path="${WORKSPACE_ROOT}/${ENV_FILE}"
+
+  create_env_file_if_missing "$env_example_path" "$env_path" "workspace"
+}
+
+ensure_service_env_file() {
+  local service_name="$1"
+  local env_example_path="${SRC_ROOT}/${service_name}/${ENV_EXAMPLE_FILE}"
+  local env_path="${SRC_ROOT}/${service_name}/${ENV_FILE}"
+
+  create_env_file_if_missing "$env_example_path" "$env_path" "$service_name"
 }
 
 clone_services_repos() {
@@ -76,6 +91,7 @@ main() {
   require_command git
   require_command docker
 
+  ensure_workspace_env_file
   load_services
   clone_services_repos
   create_network
