@@ -8,6 +8,7 @@ source "${WORKSPACE_ROOT}/scripts/lib.sh"
 SERVICES_FILE="${WORKSPACE_ROOT}/manifests/services.sh"
 INFRA_COMPOSE="${WORKSPACE_ROOT}/compose/infra.yml"
 SHARED_COMPOSE="${WORKSPACE_ROOT}/compose/shared.yml"
+GATEWAY_COMPOSE="${WORKSPACE_ROOT}/compose/gateway.yml"
 WORKSPACE_ENV_FILE="${WORKSPACE_ROOT}/.env"
 
 SRC_ROOT="${WORKSPACE_ROOT}/src"
@@ -105,6 +106,7 @@ validate_workspace_files() {
   require_file "$WORKSPACE_ENV_FILE"
   require_file "$INFRA_COMPOSE"
   require_file "$SHARED_COMPOSE"
+  require_file "$GATEWAY_COMPOSE"
 }
 
 
@@ -117,6 +119,7 @@ main() {
 
   start_compose_stack "$INFRA_COMPOSE" "infrastructure"
   start_compose_stack "$SHARED_COMPOSE" "shared"
+  start_compose_stack "$GATEWAY_COMPOSE" "gateway"
 
   if [ "$#" -eq 0 ]; then
     start_all_services
